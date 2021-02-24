@@ -198,6 +198,15 @@
 			label = "QDEC";
 		};
 
+		radio: radio@40001000 {
+			compatible = "nordic,nrf-radio";
+			reg = <0x40001000 0x1000>;
+			interrupts = <1 NRF_DEFAULT_IRQ_PRIORITY>;
+			status = "okay";
+			has-802154;
+			has-dfe;
+		};
+
 		rng: random@4000d000 {
 			compatible = "nordic,nrf-rng";
 			reg = <0x4000d000 0x1000>;
@@ -386,14 +395,6 @@
 			compatible = "nordic,nrf-uicr";
 			reg = <0x10001000 0x1000>;
 			status = "okay";
-		};
-
-		radio: radio@40001000 {
-			compatible = "nordic,nrf-radio";
-			reg = <0x40001000 0x1000>;
-			interrupts = <1 NRF_DEFAULT_IRQ_PRIORITY>;
-			status = "okay";
-			dfe-ant-num = <0>;
 		};
 	};
 

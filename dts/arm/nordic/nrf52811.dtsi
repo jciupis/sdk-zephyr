@@ -144,6 +144,15 @@
 			label = "RNG";
 		};
 
+		radio: radio@40001000 {
+			compatible = "nordic,nrf-radio";
+			reg = <0x40001000 0x1000>;
+			interrupts = <1 NRF_DEFAULT_IRQ_PRIORITY>;
+			status = "okay";
+			has-802154;
+			has-dfe;
+		};
+
 		spi0: spi@40004000 {
 			/*
 			 * This spi node can be SPI, SPIM, or SPIS,
