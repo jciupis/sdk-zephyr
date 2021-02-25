@@ -7,12 +7,16 @@ config ZEPHYR_HAL_NORDIC_MODULE
 config HAS_NORDIC_DRIVERS
 	bool
 
+config HAS_NRF_802154_RADIO
+	bool
+	default $(dt_node_has_prop,radio,has-802154)
+
 menu "Nordic drivers"
 	depends on HAS_NORDIC_DRIVERS
 
 menuconfig NRF_802154_RADIO_DRIVER
 	bool "Enable nRF IEEE 802.15.4 radio driver"
-	depends on HAS_HW_NRF_RADIO_IEEE802154
+	depends on HAS_NRF_802154_RADIO
 	select DYNAMIC_INTERRUPTS
 	select ENTROPY_GENERATOR
 	select NRF_HW_TIMER1_RESERVED
@@ -106,7 +110,7 @@ endif # NRF_802154_RADIO_DRIVER
 config NRF_802154_SER_HOST
 	bool "nRF IEEE 802.15.4 Driver serialization host"
 	depends on !NRF_802154_RADIO_DRIVER
-	depends on !HAS_HW_NRF_RADIO_IEEE802154
+	depends on !HAS_NRF_802154_RADIO
 	select RPMSG_SERVICE
 	select IEEE802154_NRF5_EXT_IRQ_MGMT if IEEE802154_NRF5
 	help
@@ -116,7 +120,7 @@ config NRF_802154_SER_HOST
 
 menuconfig NRF_802154_SER_RADIO
 	bool "nRF IEEE 802.15.4 Driver serialization radio"
-	depends on HAS_HW_NRF_RADIO_IEEE802154
+	depends on HAS_NRF_802154_RADIO
 	depends on !IEEE802154_NRF5
 	select RPMSG_SERVICE
 	select NRF_802154_RADIO_DRIVER
