@@ -355,11 +355,14 @@ void z_shell_print_cmd(const struct shell *shell)
 	z_shell_raw_fprintf(shell->fprintf_ctx, "%s", shell->ctx->cmd_buff);
 }
 
+static uint32_t m_echo_prints_done;
+
 void z_shell_print_prompt_and_cmd(const struct shell *shell)
 {
 	print_prompt(shell);
 
 	if (z_flag_echo_get(shell)) {
+		if (shell->ctx->cmd_buff) m_echo_prints_done++;
 		z_shell_print_cmd(shell);
 		z_shell_op_cursor_position_synchronize(shell);
 	}
